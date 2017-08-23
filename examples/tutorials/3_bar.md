@@ -153,7 +153,7 @@ Here we present the structure of the default configuration object for the bar gr
 Assuming that the script we are working on is `simple-line-graph.js`:
 
 ```javascript
-import { BarGraph } from 'invenio-statistics';
+import { BarGraph } from 'invenio-stats';
 
 /**
   * This is mock data

@@ -164,7 +164,7 @@ Here we present the structure of the default configuration object for the line g
 Assuming that the script we are working on is `simple-line-graph.js`:
 
 ```javascript
-import { LineGraph } from 'invenio-statistics';
+import { LineGraph } from 'invenio-stats';
 
 /**
   * This is mock data
@@ -351,7 +351,7 @@ expected, this object is a subset of the default configuration object:
 Assuming that the script we are working on is `multi-line-graph.js`:
 
 ```javascript
-import { LineGraph } from 'invenio-statistics';
+import { LineGraph } from 'invenio-stats';
 
 /**
   * This is mock data

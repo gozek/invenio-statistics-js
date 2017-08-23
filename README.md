@@ -23,10 +23,9 @@ Package | Version
 ## Demo
 With npm installed, run:
 ```bash
-$ npm run examples
+$ npm run build && npm run examples
 $ cd examples
-$ npm i
-$ ./node_modules/http-server/bin/http-server ../
+$ npm i && ./node_modules/http-server/bin/http-server ../
 ```
 Then, navigate to `http://localhost:8080/examples` to see the `demo`.
 

@@ -39,8 +39,8 @@ const moduleLoaders = {
   ]
 };
 
-/* Configuration for bundling the core library */
-const libConfig = {
+/* Configuration for bundling for development */
+const devConfig = {
   entry: {
     lib: [
       path.resolve(__dirname, './src/index.js'),
@@ -49,7 +49,7 @@ const libConfig = {
   },
   devtool: 'inline-source-map',
   output: {
-    filename: '[name].bundle.js',
+    filename: '[name].bundle.dev.js',
     path: path.resolve(__dirname, 'dist'),
     library: 'inveniographs',
     libraryTarget: 'umd',
@@ -61,20 +61,12 @@ const libConfig = {
     'd3-tip': 'd3Tip',
     'd3-svg-legend': 'legendColor'
   },
-  watch: false,
+  watch: true,
   module: moduleLoaders,
   plugins: [
     new FriendlyErrorsWebpackPlugin(),
     new ExtractTextPlugin({
       filename: 'styles.bundle.css'
-    }),
-    new UglifyJSPlugin(),
-    new BannerWebpackPlugin({
-      chunks: {
-        lib: {
-          beforeContent: `/* ${fs.readFileSync('./.license', 'utf8')} */`
-        }
-      }
     })
   ]
 };
@@ -113,9 +105,51 @@ const examplesConfig = {
   ]
 };
 
+/* Configuration for bundling for production */
+const buildConfig = {
+  entry: {
+    lib: [
+      path.resolve(__dirname, './src/index.js'),
+      path.resolve(__dirname, './src/styles/styles.scss')
+    ]
+  },
+  devtool: 'inline-source-map',
+  output: {
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    library: 'inveniographs',
+    libraryTarget: 'umd',
+    umdNamedDefine: true
+  },
+  externals: {
+    d3: 'd3',
+    lodash: '_',
+    'd3-tip': 'd3Tip',
+    'd3-svg-legend': 'legendColor'
+  },
+  watch: false,
+  module: moduleLoaders,
+  plugins: [
+    new FriendlyErrorsWebpackPlugin(),
+    new ExtractTextPlugin({
+      filename: 'styles.bundle.css'
+    }),
+    new UglifyJSPlugin(),
+    new BannerWebpackPlugin({
+      chunks: {
+        lib: {
+          beforeContent: `/* ${fs.readFileSync('./.license', 'utf8')} */`
+        }
+      }
+    })
+  ]
+};
+
 /* Export the correct webpack configuration, based on env variable */
 if (env === 'dev') {
-  module.exports = [libConfig];
+  module.exports = [devConfig];
 } else if (env === 'examples') {
   module.exports = [examplesConfig];
+} else if (env === 'build') {
+  module.exports = [buildConfig];
 }
